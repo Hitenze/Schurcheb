@@ -1,6 +1,6 @@
-**Schurcheb: A MPI-based Real Symmetric Eigenvalue Solver for Computing Smallest Eigenvalues (Version 1.0.0)**
+**SchurCheb: A MPI-based Real Symmetric Eigenvalue Solver for Computing Smallest Eigenvalues (Version 1.0.0)**
 
-**Schurcheb** is a MPI-based C++ research code for computing partial spectral factorizations of matrix pencils via Chebyshev approximation.
+**SchurCheb** is a MPI-based C++ research code for computing partial spectral factorizations of matrix pencils via Chebyshev approximation.
 This is a distributed-memory package for computing all the eigenvalues (and corresponding eigenvectors) of a large, sparse, real symmetric
 positive definite matrix pencil that lie within a target interval.
 The algorithm is purely algebraic and is based Chebyshev interpolation of the eigenvalues of the Schur
@@ -10,18 +10,18 @@ derived from the reordering and one from the independence of the interpolation n
 
 For questions/feedback send e-mail to Tianshi Xu [xuxx1180@umn.edu]. 
 
-![Schurcheb](Schurcheb.png)
+![SchurCheb](Schurcheb.png)
 
 Key Features:
- - Schurcheb is purely algebraic. Only needs the matrix A and M.
- - Schurcheb uses 2D MPI grids for better parallel scalability.
- - Schurcheb does not require the factorization of the mass matrix.
+ - SchurCheb is purely algebraic. Only needs the matrix A and M.
+ - SchurCheb uses 2D MPI grids for better parallel scalability.
+ - SchurCheb does not require the factorization of the mass matrix.
 
 **1. DESCRIPTION OF CONTENTS**
 
  * SRC
     - utils                             : Utility functions.
-       - complex.hpp                    : Complex value for Schurcheb.
+       - complex.hpp                    : Complex value for SchurCheb.
        - utils.hpp                      : Basic utility functions.
        - parallel.hpp                   : Basic parallel functions.
        - memory.hpp                     : Memory management.
@@ -56,7 +56,7 @@ Key Features:
 
  * TESTS
     - test_schur.cpp                    : test driver for Schur Chebyshev eigenvalue solver.
-    - test_min.cpp                      : a very simple example of the Schurcheb interface.
+    - test_min.cpp                      : a very simple example of the SchurCheb interface.
     - test_parpack.cpp                  : test driver for comparisons.
 
 
@@ -104,7 +104,7 @@ For more options please see the test_schur.cpp.
 using namespace schurcheb;
 ```
 
- - Initialize Schurcheb
+ - Initialize SchurCheb
 ```
 //Only one of the following functions should be used.
 //If user do not call MPI_Init, use this function as MPI_Init.
@@ -138,7 +138,7 @@ M.Clear();
 eig_solver.Clear();
 ```
 
- - Finalize Schurcheb
+ - Finalize SchurCheb
 ```
 //Only one of the following functions should be used.
 //If user do not call MPI_Finalize, use this function as MPI_Finalize.
