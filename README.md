@@ -139,8 +139,8 @@ eig_solver.Clear();
  - Finalize Schurcheb
 ```
 //Only one of the following functions should be used.
-//If user do not call MPI_Fiinalize, use this function as MPI_Fiinalize.
+//If user do not call MPI_Finalize, use this function as MPI_Finalize.
 SchurchebFinalize();
-//If user call MPI_Fiinalize, call this function before MPI_Fiinalize.
+//If user call MPI_Finalize, call this function before MPI_Finalize.
 SchurchebFinalizeMpi()
 ```
