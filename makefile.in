@@ -1,0 +1,107 @@
+USING_PARPACK = 0
+USING_MKL = 0
+USING_MUMPS = 0
+USING_SUPERLU = 0
+USING_OPENBLAS = 0
+#be careful when changing into INT64. Need recompile parmetis using IN64. Note that superlu also uses parmetis.
+USING_INT32 = 1
+USING_OPENMP = 0
+USING_BLAS = 0
+DEBUG_MODE = 1
+
+# Path to support library
+METIS_PATH = ./EXTERNAL/parmetis/build/Linux-x86_64
+# also change LIBLAPACK when changing the LAPACK
+ifeq ($(USING_OPENBLAS),0)
+LAPACK_PATH = .
+LIBLAPACK = -lblas -llapack
+LAPACK_INCLUDE_PATH = .
+else
+LAPACK_PATH = ./EXTERNAL/OpenBLAS
+LAPACK_INCLUDE_PATH = ./EXTERNAL/OpenBLAS
+LIBLAPACK = -lopenblas
+endif
+LIBGFORTRAN = -lgfortran
+MKL_PATH = $(MKLROOT)
+
+# Set compiler
+ifeq ($(USING_MKL),0)
+MPICC := mpicc
+MPICPP := mpicxx
+else
+#use intel compiler for MKL
+MPICC := mpiicc
+MPICPP := mpiicpc
+endif
+
+CC = $(MPICC)
+CXX = $(MPICPP)
+NVCC = $(MPICPP)
+LINK = $(MPICPP)
+
+AR = ar crv
+RANLIB = ranlib
+
+# basic flag
+FLAGS := -DUNIX -O3 -g -std=c++11
+
+# extra flags
+
+ifneq ($(USING_OPENMP),0)
+# -DSCHURCHEB_OPENMP: enable openmp
+LINK += -fopenmp
+FLAGS += -fopenmp -DSCHURCHEB_OPENMP
+LIBOPENMP = -lomp
+endif
+
+ifneq ($(USING_PARPACK),0)
+# -DSCHURCHEB_PARPACK: enable parallel arpack
+PARPACK_PATH = ./EXTERNAL/arpack-ng/build/lib
+FLAGS += -DSCHURCHEB_PARPACK
+LIBPARPACK = -larpack -lparpack
+else
+PARPACK_PATH = .
+endif
+
+ifneq ($(USING_SUPERLU),0)
+SUPERLU_INCLUDE_PATH = ./EXTERNAL/superlu_dist/SRC
+LIBSUPERLU = -L./EXTERNAL/superlu_dist/build/SRC -lsuperlu_dist
+FLAGS += -DSCHURCHEB_SUPERLU
+LIBCOMBBLAS = -L./EXTERNAL/CombBLAS/_install/lib -lCombBLAS
+endif
+
+ifneq ($(USING_MUMPS),0)
+MUMPS_INCLUDE_PATH = ./EXTERNAL/mumps/include
+LIBMUMPS = -L./EXTERNAL/mumps/lib -ldmumps -lmumps_common -lpord -L./EXTERNAL/Scotch/scotch/lib -lptesmumps -lesmumps -lptscotch -lscotch -lptscotcherr -lscotcherr
+#LIBSCALAPACK = -L./EXTERNAL/MUMPS/mumps/build/lib -lscalapack -lblacs
+#MPIF_LIB_PATH = /panfs/roc/intel/x86_64/2018/impi_msi/compilers_and_libraries_2018.0.128/linux/mpi/intel64
+LIBMPIF =
+FLAGS += -DSCHURCHEB_MUMPS -Dparmetis -Dptscotch
+endif
+
+# -DSCHURCHEB_DEBUG: enbale debug mode, slower with many extra check.
+# -DSCHURCHEB_DEBUG_MEMORY: enable memory debug, much slower, with full memory check function.
+
+ifneq ($(DEBUG_MODE),0)
+FLAGS += -DSCHURCHEB_DEBUG -DSCHURCHEB_DEBUG_MEMORY
+endif
+
+ifneq ($(USING_BLAS),0)
+FLAGS += -DSCHURCHEB_BLAS
+endif
+
+ifneq ($(USING_INT32),0)
+FLAGS += -DSCHURCHEB_INT32
+endif
+
+ifneq ($(USING_MKL),0)
+# -DSCHURCHEB_MKL: enable MKL in the code for multithread
+FLAGS += -DSCHURCHEB_MKL -qopenmp
+LINK += -qopenmp
+# MKLROOT is the path to MKL
+LIBMKL =  -L$(MKL_PATH)/lib/intel64/ -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lm
+endif
+
+ifneq ($(USING_OPENBLAS),0)
+FLAGS += -DSCHURCHEB_OPENBLAS
+endif
