@@ -54,6 +54,7 @@ Key Features:
 
  * TESTS
     - test_schur.cpp                    : test driver for Schur Chebyshev eigenvalue solver.
+    - test_min.cpp                      : a very simple example of the Schurcheb interface.
     - test_parpack.cpp                  : test driver for comparisons.
 
 
