@@ -8,7 +8,9 @@ complement (over the interface variables) of a domain decomposition reordering
 of the pencil and accordingly exposes two dimensions of parallelism: one
 derived from the reordering and one from the independence of the interpolation nodes.
 
-For questions/feedback send e-mail to Tianshi Xu [xuxx1180@umn.edu]. ![Schurcheb](Schurcheb.png)
+For questions/feedback send e-mail to Tianshi Xu [xuxx1180@umn.edu]. 
+
+![Schurcheb](Schurcheb.png)
 
 Key Features:
  - Schurcheb is purely algebraic. Only needs the matrix A and M.
