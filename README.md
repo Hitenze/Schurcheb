@@ -146,3 +146,13 @@ SchurchebFinalize();
 //If user call MPI_Finalize, call this function before MPI_Finalize.
 SchurchebFinalizeMpi()
 ```
+
+**5. REFERENCES**
+
+The numerical experiments of this package could be found in the following paper:
+
+<td class="info">
+      [1.] &nbsp <b>A Parallel Algorithm for Computing Partial Spectral Factorizations of Matrix Pencils via Chebyshev Approximation</b><br>
+      T. Xu, A. P. Austin, V. Kalantzis, and Y. Saad<br>
+      Submitted<br>
+      </td>
