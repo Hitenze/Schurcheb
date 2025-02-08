@@ -154,5 +154,6 @@ The numerical experiments of this package could be found in the following paper:
 <td class="info">
       [1.] &nbsp <b>A Parallel Algorithm for Computing Partial Spectral Factorizations of Matrix Pencils via Chebyshev Approximation</b><br>
       T. Xu, A. P. Austin, V. Kalantzis, and Y. Saad<br>
-      To Appear<br>
+      SIAM Journal on Scientific Computing (2024)<br>
+      DOI: 10.1137/22M1501155<br>
       </td>
